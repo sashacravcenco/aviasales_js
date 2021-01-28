@@ -14,28 +14,31 @@ const showCity = (input, list) => {
 
     if (input.value === '') return;
 
-        const filterCity = city.filter((item) => {
-            const fixItem = item.toLowerCase();
-            return fixItem.includes(input.value.toLowerCase());
-        });
-        filterCity.forEach((item) => {
-            const li = document.createElement('li');
-            li.classList.add('dropdown__city');
-            li.textContent = item;
-            list.append(li);
-        });
+    const filterCity = city.filter((item) => {
+        const fixItem = item.toLowerCase();
+        return fixItem.includes(input.value.toLowerCase());
+    });
+    filterCity.forEach((item) => {
+        const li = document.createElement('li');
+        li.classList.add('dropdown__city');
+        li.textContent = item;
+        list.append(li);
+    });
 };
 
 inputCitiesFrom.addEventListener('input', () => {
     showCity(inputCitiesFrom, dropdownCitiesFrom)
 });
 
-dropdownCitiesFrom.addEventListener('click', (event) => {
-    const target = event.target;
+function handleCityClick(target, inputCities, dropdownCities) {
     if (target.tagName.toLowerCase() === 'li') {
-        inputCitiesFrom.value = target.textContent;
-        dropdownCitiesFrom.textContent = '';
+        inputCities.value = target.textContent;
+        dropdownCities.textContent = '';
     }
+}
+
+dropdownCitiesFrom.addEventListener('click', (event) => {
+    handleCityClick(event.target, inputCitiesFrom, dropdownCitiesFrom);
 });
 
 inputCitiesTo.addEventListener('input', () => {
@@ -43,13 +46,5 @@ inputCitiesTo.addEventListener('input', () => {
 });
 
 dropdownCitiesTo.addEventListener('click', (event) => {
-    const target = event.target;
-    if (target.tagName.toLowerCase() === 'li') {
-        inputCitiesTo.value = target.textContent;
-        dropdownCitiesTo.textContent = '';
-    }
+    handleCityClick(event.target, inputCitiesTo, dropdownCitiesTo);
 });
-
-/* 1. повторить, что было в уроке
-2. живой поиск на инпут куда */
-
